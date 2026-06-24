@@ -1,0 +1,36 @@
+{
+  "name": "Split PDF \u2014 runlocally",
+  "short_name": "Split PDF",
+  "description": "Split a PDF or extract page ranges, in your browser. Nothing is uploaded. Works offline.",
+  "start_url": "/pdf-split/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "scope": "/pdf-split/",
+  "icons": [
+    {
+      "src": "/pdf-split/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pdf-split/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "utilities",
+    "productivity"
+  ],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
+}
