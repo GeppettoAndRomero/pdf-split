@@ -6,6 +6,7 @@
  */
 
 import { PDFDocument } from 'pdf-lib';
+import { AppError } from './appError';
 
 /** Number of pages in a PDF. Throws a clear error on encrypted/corrupt files. */
 export async function getPageCount(file: File): Promise<number> {
@@ -19,8 +20,8 @@ async function loadPdf(file: File): Promise<PDFDocument> {
     return await PDFDocument.load(bytes);
   } catch (e) {
     const msg = e instanceof Error ? e.message : '';
-    if (/encrypt/i.test(msg)) throw new Error('This PDF is password-protected (encrypted).');
-    throw new Error('This file is not a readable PDF.');
+    if (/encrypt/i.test(msg)) throw new AppError('errPdfEncrypted');
+    throw new AppError('errPdfUnreadable');
   }
 }
 
@@ -30,23 +31,23 @@ async function loadPdf(file: File): Promise<PDFDocument> {
  */
 export function parseRanges(spec: string, pageCount: number): number[] {
   const trimmed = spec.trim();
-  if (!trimmed) throw new Error('Enter the pages to extract (e.g. 1-3, 5).');
+  if (!trimmed) throw new AppError('errRangeEmpty');
 
   const pages = new Set<number>();
   for (const part of trimmed.split(',')) {
     const token = part.trim();
     if (!token) continue;
     const m = token.match(/^(\d+)(?:\s*-\s*(\d+))?$/);
-    if (!m) throw new Error(`"${token}" is not a valid page or range.`);
+    if (!m) throw new AppError('errRangeInvalid', { token });
     const start = Number(m[1]);
     const end = m[2] === undefined ? start : Number(m[2]);
     if (start < 1 || end < 1 || start > pageCount || end > pageCount) {
-      throw new Error(`Pages must be between 1 and ${pageCount}.`);
+      throw new AppError('errPageOutOfRange', { n: pageCount });
     }
     const [lo, hi] = start <= end ? [start, end] : [end, start];
     for (let p = lo; p <= hi; p++) pages.add(p - 1); // → 0-based
   }
-  if (pages.size === 0) throw new Error('No pages selected.');
+  if (pages.size === 0) throw new AppError('errNoPagesSelected');
   return [...pages].sort((a, b) => a - b);
 }
 

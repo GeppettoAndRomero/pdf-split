@@ -8,6 +8,7 @@ import { useState, useEffect, useCallback } from 'preact/hooks';
 import { AppCard } from './AppCard';
 import { ErrorToast } from './ErrorToast';
 import { getPageCount, parseRanges, extractPages } from '@/utils/pdfEngine';
+import { resolveErrorMessage } from '@/utils/appError';
 import { ui } from '@/i18n/ui';
 
 interface ErrorToastItem {
@@ -49,10 +50,10 @@ export function ConversionManager({ locale = 'en' }: ConversionManagerProps) {
         setRanges(`1-${n}`);
       } catch (error) {
         setFile(null);
-        showErrorToast(`${f.name}: ${error instanceof Error ? error.message : 'Failed'}`);
+        showErrorToast(`${f.name}: ${resolveErrorMessage(error, t)}`);
       }
     },
-    [showErrorToast]
+    [showErrorToast, t]
   );
 
   const handleFiles = useCallback(
@@ -89,11 +90,11 @@ export function ConversionManager({ locale = 'en' }: ConversionManagerProps) {
       a.remove();
       URL.revokeObjectURL(url);
     } catch (error) {
-      showErrorToast(error instanceof Error ? error.message : 'Failed');
+      showErrorToast(resolveErrorMessage(error, t));
     } finally {
       setBusy(false);
     }
-  }, [file, pageCount, ranges, busy, showErrorToast]);
+  }, [file, pageCount, ranges, busy, showErrorToast, t]);
 
   return (
     <div>
