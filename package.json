@@ -14,13 +14,15 @@
     "test:unit": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "postinstall": "node scripts/copy-pdfjs-assets.mjs"
   },
   "dependencies": {
     "@astrojs/preact": "^3.5.3",
     "@zip.js/zip.js": "^2.8.8",
     "astro": "^4.16.18",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38",
     "preact": "^10.24.3"
   },
   "devDependencies": {

@@ -15,6 +15,7 @@ export default [
       'test-results/**',
       'playwright-report/**',
       'src/env.d.ts', // Astro-generated
+      'public/pdf-split/pdfjs/**', // vendored from pdfjs-dist by scripts/copy-pdfjs-assets.mjs, not our code
     ],
   },
   js.configs.recommended,
@@ -39,6 +40,11 @@ export default [
     // Hand-written service worker (plain JS) — runs in the ServiceWorker scope.
     files: ['public/**/*.js'],
     languageOptions: { globals: { ...globals.serviceworker, ...globals.browser } },
+  },
+  {
+    // Node-only dev tooling (postinstall asset copy), not shipped to the browser.
+    files: ['scripts/**/*.mjs'],
+    languageOptions: { globals: { ...globals.node } },
   },
   {
     // Playwright's `({}, testInfo) => ...` fixture/info signature is idiomatic.
