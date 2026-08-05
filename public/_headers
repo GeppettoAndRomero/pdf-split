@@ -27,3 +27,8 @@
 # Manifest: 短期キャッシュ
 /pdf-split/manifest.json
   Cache-Control: public, max-age=3600
+
+# Router-fronted tool: the *.pages.dev origin is noindex; the front-router strips
+# X-Robots-Tag on runlocally.app responses so the apex is the only indexed surface.
+/pdf-split/*
+  X-Robots-Tag: noindex
