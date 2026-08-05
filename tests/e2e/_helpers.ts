@@ -10,9 +10,8 @@ export async function waitReady(page: Page) {
   await page.waitForFunction(() => (window as Record<string, unknown>).__toolReady === true);
 }
 
-/** pdf-split action: drop a PDF, then extract (range defaults to all pages on load). */
-export async function convert(page: Page): Promise<Download> {
-  const downloadPromise = page.waitForEvent('download', { timeout: 30_000 });
+/** Drop sample.pdf (5 pages) without extracting — for tests that drive the UI further. */
+export async function dropSample(page: Page): Promise<void> {
   await page.evaluate((b64) => {
     const bin = atob(b64);
     const bytes = new Uint8Array(bin.length);
@@ -24,6 +23,12 @@ export async function convert(page: Page): Promise<Download> {
     );
   }, PDF_B64);
   await page.locator('#extract-action').waitFor({ state: 'visible', timeout: 10_000 });
+}
+
+/** pdf-split action: drop a PDF, then extract (range defaults to all pages on load). */
+export async function convert(page: Page): Promise<Download> {
+  const downloadPromise = page.waitForEvent('download', { timeout: 30_000 });
+  await dropSample(page);
   await page.click('#extract-action');
   return downloadPromise;
 }

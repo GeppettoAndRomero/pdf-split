@@ -92,7 +92,7 @@ self.addEventListener('fetch', (event) => {
  * 静的アセットかどうかを判定
  */
 function isStaticAsset(pathname) {
-  const staticExtensions = ['.css', '.js', '.wasm', '.png', '.jpg', '.jpeg', '.svg', '.woff', '.woff2', '.ttf'];
+  const staticExtensions = ['.css', '.js', '.mjs', '.wasm', '.png', '.jpg', '.jpeg', '.svg', '.woff', '.woff2', '.ttf'];
   return staticExtensions.some(ext => pathname.endsWith(ext)) || pathname === '/pdf-split/manifest.json';
 }
 
