@@ -6,12 +6,12 @@ export const en: ToolContent = {
   htmlLang: 'en',
 
   meta: {
-    title: 'Split a PDF — Extract Pages in Your Browser, No Upload | runlocally',
+    title: 'Split a PDF — Offline, No Sign Up, No Upload | runlocally',
     description:
-      'Split a PDF or extract page ranges into a new PDF, right in your browser. The file is read on your device and never uploaded. Open source (MIT), works offline.',
-    ogTitle: 'Split a PDF — Extract Pages in Your Browser, No Upload',
+      'Split a PDF or extract page ranges into a new PDF without uploading anything and without signing up — right in your browser. Works fully offline. Open source (MIT).',
+    ogTitle: 'Split a PDF — Offline, No Sign Up, No Upload',
     ogDescription:
-      'Extract page ranges from a PDF into a new file, in your browser. Nothing is uploaded. Open source, works offline.',
+      'Extract page ranges from a PDF into a new file, in your browser, without uploading or signing up. Works offline. Open source.',
   },
 
   hero: {
@@ -61,6 +61,10 @@ export const en: ToolContent = {
 
   faqHeading: 'FAQ',
   faq: [
+    {
+      q: 'Do I need to sign up or install anything?',
+      a: 'No. There is no account, no sign up, and nothing to install — open the page and split PDFs directly in your browser. It also works fully offline once the page has loaded, and no file is ever uploaded.',
+    },
     {
       q: 'Is my PDF uploaded anywhere?',
       a: 'No. The split runs entirely in your browser. There is no server component, so your file has no path off your device. The source is open and you can confirm this in your browser\'s Network panel.',
